@@ -1,0 +1,1 @@
+{"batch_size": 32, "callbacks": false, "data_augmentation": false, "early_stopping": false, "early_stopping_delta": 0.1, "early_stopping_patience": 1, "epochs": 2, "global_pooling": "max", "image_shape": [32, 32, 3], "loss": "categorical_crossentropy", "lr": 0.001, "optimizer": "adam", "class_weights": false, "weighted_metrics": null}
