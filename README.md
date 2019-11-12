@@ -1,4 +1,4 @@
-# Cifar10 Classification with Autoencoders
+# Cifar10 Classification with Autoencoder
 
 
 # System Description 
@@ -21,7 +21,7 @@ To use this project in Google Colab please follow the instructions below:
 
 1. Place the directory containing the project ('cifar10_classification_autoencoder') inside the 'Colab Notebooks' folder in your Google Drive;
 
-2. Open an ipython notebook inside the project folder and place the following cel on top:
+2. Open an ipython notebook inside the project folder and place the following cell on top:
 
 ```
 import os
