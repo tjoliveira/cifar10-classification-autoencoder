@@ -59,6 +59,10 @@ Optimal configuration of the classifier resulting from this project.
 
 IPython notebook with the optimal pipeline: load data, train autoencoder, train classifier, evaluate classifier.
 
+### report.pdf
+
+The technical report for the project. 
+
 
 ## Model Configuration 
 
