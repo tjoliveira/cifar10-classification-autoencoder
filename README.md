@@ -5,7 +5,7 @@
 
 - GPU: 1xTesla K80 , 2496 CUDA cores, compute 3.7,  12GB(11.173 GB Usable) GDDR5  VRAM
 
-- CPU: 1xsingle core hyper threaded i.e(1 core, 2 threads) Xeon Processors @2.3Ghz (No Turbo Boost) , 46MB Cache
+- CPU: 1xsingle core hyper threaded (1 core, 2 threads) Xeon Processors @2.3Ghz (No Turbo Boost) , 46MB Cache
 
 - RAM: ~12.5 GB Available
 
@@ -57,7 +57,8 @@ Optimal configuration of the classifier resulting from this project.
 
 ### pipeline_optimal.ipynb
 
-IPython notebook with whole pipeline: load data, train autoencoder, train classifier, evaluate classifier.
+IPython notebook with the optimal pipeline: load data, train autoencoder, train classifier, evaluate classifier.
+
 
 # Model Configuration 
 
@@ -118,7 +119,7 @@ classifier_config= {'batch_size': 32,
 ```
 
 
-Not all the available configurations were explored within this project due to temporal constrains, but it is relatively easy to change model configuration with these dictionaries. 
+Not all the available configurations were explored in this project due to temporal constrains, but it is relatively easy to test them by changing configurations with these dictionaries. 
 
 # Instructions
 
@@ -134,11 +135,11 @@ from google.colab import drive
 drive.mount('/content/gdrive')
 %cd /content/gdrive/My\ Drive/Colab \Notebooks/cifar10_classification_autoencoder
 !pwd
-sys.path.append('/content/gdrive/My Drive/Colab Notebooks/cifar10_classification_autoencoder/cifar10_module/')
+sys.path.append('/content/gdrive/My Drive/Colab Notebooks/cifar10_classification_autoencoder/cifar10_modules/')
 !pip install matplotlib==3.1.0
 ```
 
-This sets the project folder as the working directory and adds the 'cifar10_module' direcory to the system path in order to be able to use modules 'dataset.py' and 'modelling.py'. Additionally, it downgrades matplotlib version to 3.1.0 as the 3.1.1 version 
+This sets the project folder as the working directory and adds the '/cifar10_modules' direcory to the system path in order to be able to use modules 'dataset.py' and 'modelling.py'. Additionally, it downgrades Matplotlib version to 3.1.0 as the 3.1.1 version 
 was raising issues with Seaborn.
 
 2. Import modules 'dataset.py' and 'modelling.py':
@@ -165,13 +166,13 @@ x_train, x_val, x_test, y_train, y_val, y_test, class_names= load_and_norm(0.22)
 ```
 autoencoder_config= load_config('autoencoder_config_optimal.json')
 ```
-This is a dictionary, so it is possible to easily change the configuration (e.g., autoencoder_config['epochs']=100). To save this configuration use the save_config() function with a filename of your choosing as in the instruction below:
+This is a dictionary, so it is possible to easily change the configuration (e.g., autoencoder_config['epochs']= 100). To save this configuration use the save_config() function with a filename of your choosing as in the instruction below:
 
 ```
 save_config(autoencoder_config, 'autoencoder_config_optimal.json')
 ```
 
-5. To train the autoencoder according to autoencoder_configuration with training and validation data:
+5. To train the autoencoder according to autoencoder_config with training and validation sets:
 
 ```
 autoencoder= train_autoencoder(x_train, x_val, autoencoder_config, autoencoder_filename, encoder_filename)
@@ -196,7 +197,7 @@ show_image_list(x_pred,y_val,class_names,image_list)
 classifier_config= load_config('classifier_config_optimal.json')
 ```
 
-8. to train the classifier based on a classifier_config:
+8. To train the classifier based on a classifier_config:
 
 ```
 classifier= train_classifier(x_train, x_val, y_train, y_val,
@@ -205,7 +206,7 @@ classifier= train_classifier(x_train, x_val, y_train, y_val,
 
 ```
 
-autoencoder_config is uses to generate the first part of the classifier. 
+autoencoder_config is used to generate the first part of the classifier. 
 
 encoder_filename is used to load the weights of the trained encoder onto the correposnding layers of the classifier. 
 
