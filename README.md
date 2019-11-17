@@ -1,7 +1,7 @@
 # Cifar10 Classification with Autoencoder
 
 
-# System Description 
+## System Description 
 
 - GPU: 1xTesla K80 , 2496 CUDA cores, compute 3.7,  12GB(11.173 GB Usable) GDDR5  VRAM
 
@@ -12,7 +12,7 @@
 - Disk: ~310 GB Available 
 
 
-# Module requirements:
+## Required Modules
 
 - Keras 2.2.5
 
@@ -29,7 +29,7 @@
 - Pandas 0.25.3
 
 
-# Project Layout
+## Project Layout
 
 ### /cifar10_modules
 
@@ -60,7 +60,7 @@ Optimal configuration of the classifier resulting from this project.
 IPython notebook with the optimal pipeline: load data, train autoencoder, train classifier, evaluate classifier.
 
 
-# Model Configuration 
+## Model Configuration 
 
 ### Autoencoder 
 
@@ -121,7 +121,7 @@ classifier_config= {'batch_size': 32,
 
 Not all the available configurations were explored in this project due to temporal constrains, but it is relatively easy to test them by changing configurations with these dictionaries. 
 
-# Instructions
+## Instructions
 
 To use this project in Google Colab please follow the instructions below:
 
