@@ -146,47 +146,47 @@ sys.path.append('/content/gdrive/My Drive/Colab Notebooks/cifar10_classification
 This sets the project folder as the working directory and adds the '/cifar10_modules' direcory to the system path in order to be able to use modules 'dataset.py' and 'modelling.py'. Additionally, it downgrades Matplotlib version to 3.1.0 as the 3.1.1 version 
 was raising issues with Seaborn.
 
-2. Import modules 'dataset.py' and 'modelling.py':
+3. Import modules 'dataset.py' and 'modelling.py':
 
 ```
 from dataset import *
 from modelling import *
 ```
 
-3. Set random seed for the Python random number generator, Numpy, and Tensorflow:
+4. Set random seed for the Python random number generator, Numpy, and Tensorflow:
 
 ```
 set_random_seeds(42)
 ```
 
-4. To load the normalized ([0, 1]) CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following intruction: 
+5. To load the normalized ([0, 1]) CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following intruction: 
 
 ```
 x_train, x_val, x_test, y_train, y_val, y_test, class_names= load_and_norm(0.22)
 ```
 
-4. To load the optimal autoencoder configuration:
+6. To load the optimal autoencoder configuration:
 
 ```
 autoencoder_config= load_config('autoencoder_config_optimal.json')
 ```
-- This is a dictionary, so it is possible to easily change the configuration (e.g., autoencoder_config['epochs']= 100). To save this configuration use the save_config() function with a filename of your choosing as in the instruction below:
+This is a dictionary, so it is possible to easily change the configuration (e.g., autoencoder_config['epochs']= 100). To save this configuration use the save_config() function with a filename of your choosing as in the instruction below:
 
 ```
 save_config(autoencoder_config, 'autoencoder_config_optimal.json')
 ```
 
-5. To train the autoencoder according to autoencoder_config with training and validation sets:
+7. To train the autoencoder according to autoencoder_config with training and validation sets:
 
 ```
 autoencoder= train_autoencoder(x_train, x_val, autoencoder_config, autoencoder_filename, encoder_filename)
 ```
 
-- autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory, the training history in the '/history' directory and a training and validation loss plot in the '/plots' directory. 
+autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory, the training history in the '/history' directory and a training and validation loss plot in the '/plots' directory. 
 
-- encoder_filename will be used to save the weights of the encoder component in the '/models' directory.  
+encoder_filename will be used to save the weights of the encoder component in the '/models' directory.  
 
-6. To generate a random list of images and visualize the autoencoder predictions for these images:
+8. To generate a random list of images and visualize the autoencoder predictions for these images:
 
 ```
 x_pred= autoencoder.predict(x_val)
@@ -195,13 +195,13 @@ show_image_list(x_val,y_val,class_names,image_list)
 show_image_list(x_pred,y_val,class_names,image_list)
 ```
 
-7. To load the configuration of the optimal classifier:
+9. To load the configuration of the optimal classifier:
 
 ```
 classifier_config= load_config('classifier_config_optimal.json')
 ```
 
-8. To train the classifier based on a classifier_config:
+10. To train the classifier based on a classifier_config:
 
 ```
 classifier= train_classifier(x_train, x_val, y_train, y_val,
@@ -210,13 +210,13 @@ classifier= train_classifier(x_train, x_val, y_train, y_val,
 
 ```
 
-- autoencoder_config is used to generate the first part of the classifier. 
+autoencoder_config is used to generate the first part of the classifier. 
 
-- encoder_filename is used to load the weights of the trained encoder onto the correposnding layers of the classifier. 
+encoder_filename is used to load the weights of the trained encoder onto the correposnding layers of the classifier. 
 
-- classifier_filename is used to save the trained classifier in the '/models' directory and loss and accuracy plots in the '/plots' folder.  
+classifier_filename is used to save the trained classifier in the '/models' directory and loss and accuracy plots in the '/plots' folder.  
 
-9. To evaluate the classifier and build confusion matrix and classification report:
+11. To evaluate the classifier and build confusion matrix and classification report:
 
 ```
 y_pred= classifier_predict_evaluate(x_val, y_val, classifier, class_names)
