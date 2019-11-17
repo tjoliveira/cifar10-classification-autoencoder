@@ -28,6 +28,98 @@
 
 - Pandas 0.25.3
 
+
+# Project Layout
+
+### /cifar10_modules
+
+Contains modules developed for the project along with their .ipynb counterparts for easy consultation.
+
+### /history 
+
+Contains training history of autoencoders and classifiers in .json format.
+
+### /models 
+
+Contains trained autoencoder and classifier models in .json format as well as weights of encoder components. The optimal models are saved in this directory under the names 'autoencoder_optimal' and 'classifier_optimal'.
+
+### /plots
+
+Contains plots of training and validation metrics from autoencoders and classifiers.
+
+### autoencoder_config_optimal.json
+
+Optimal configuration of the autoencoder resulting from this project.
+
+### classifier_config_optimal.json
+
+Optimal configuration of the classifier resulting from this project.
+
+### pipeline_optimal.ipynb
+
+IPython notebook with whole pipeline: load data, train autoencoder, train classifier, evaluate classifier.
+
+# Model Configuration 
+
+### Autoencoder 
+
+The autoencoder configuration is represented as a dictionary with the following keys:
+
+```
+autoencoder_config= {'activity_regularizer': False,
+                    'activity_regularizer_type': 'l1',
+                    'activity_regularizer_value': 0.001,
+                    'batch_norm': False,
+                    'batch_size': 32,
+                    'callbacks': False,
+                    'conv_blocks': 2,
+                    'dropout': False,
+                    'dropout_value': 0.2,
+                    'early_stopping': False,
+                    'early_stopping_delta': 0.1,
+                    'early_stopping_patience': 10,
+                    'epochs': 100,
+                    'gaussian_noise_input': False,
+                    'gaussian_noise_hidden': False,
+                    'gaussian_noise_stddev': 0.1,
+                    'image_shape': [32, 32, 3],
+                    'init_num_filters': 32,
+                    'kernel_regularizer': False,
+                    'kernel_regularizer_type': 'l2',
+                    'kernel_regularizer_value': 0.001,
+                    'layers_per_block': 2,
+                    'loss': 'mean_squared_error',
+                    'lr': 0.001,
+                    'optimizer': 'adam'}
+
+```
+
+
+### Classifier
+
+The classifier configuration is represented as a dictionary with the following keys:
+
+```
+classifier_config= {'batch_size': 32,
+                    'callbacks': False,
+                    'data_augmentation': False,
+                    'balance_classes_onepoch': False,
+                    'early_stopping': False,
+                    'early_stopping_delta': 0.1,
+                    'early_stopping_patience': 10,
+                    'epochs': 100,
+                    'global_pooling': 'max',
+                    'image_shape': [32, 32, 3],
+                    'loss': 'categorical_crossentropy',
+                    'lr': 0.001,
+                    'optimizer': 'adam',
+                    'class_weights': False,
+                    'weighted_metrics': None}
+```
+
+
+Not all the available configurations were explored within this project due to temporal constrains, but it is relatively easy to change model configuration with these dictionaries. 
+
 # Instructions
 
 To use this project in Google Colab please follow the instructions below:
@@ -62,7 +154,7 @@ from modelling import *
 set_random_seeds(42)
 ```
 
-4. To load the normalized (in [0, 1] CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following intruction: 
+4. To load the normalized ([0, 1]) CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following intruction: 
 
 ```
 x_train, x_val, x_test, y_train, y_val, y_test, class_names= load_and_norm(0.22)
@@ -79,23 +171,49 @@ This is a dictionary, so it is possible to easily change the configuration (e.g.
 save_config(autoencoder_config, 'autoencoder_config_optimal.json')
 ```
 
-5. To train the autoencoder according to 'autoencoder_configuration' with training and validation data:
+5. To train the autoencoder according to autoencoder_configuration with training and validation data:
 
 ```
 autoencoder= train_autoencoder(x_train, x_val, autoencoder_config, autoencoder_filename, encoder_filename)
 ```
 
-autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory, the training history in the '/history' directory and a training and validation loss plot in the '/plots' folder encoder_filename will be used to save the weights of the encoder component in the '/weights' directory.  
+autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory, the training history in the '/history' directory and a training and validation loss plot in the '/plots' directory. 
 
-6. train autoencoder
+encoder_filename will be used to save the weights of the encoder component in the '/models' directory.  
 
-7. visualize reconstruction
+6. To generate a random list of images and visualize the autoencoder predictions for these images:
 
-8. train classifier
+```
+x_pred= autoencoder.predict(x_val)
+image_list= random_images(y_val, class_names)
+show_image_list(x_val,y_val,class_names,image_list)
+show_image_list(x_pred,y_val,class_names,image_list)
+```
 
-9. predict and evaluate
+7. To load the configuration of the optimal classifier:
 
-10. tune
+```
+classifier_config= load_config('classifier_config_optimal.json')
+```
 
-11. predict and evaluate
+8. to train the classifier based on a classifier_config:
+
+```
+classifier= train_classifier(x_train, x_val, y_train, y_val,
+                             autoencoder_config, classifier_config,
+                             encoder_filename, classifier_filename)
+
+```
+
+autoencoder_config is uses to generate the first part of the classifier. 
+
+encoder_filename is used to load the weights of the trained encoder onto the correposnding layers of the classifier. 
+
+classifier_filename is used to save the trained classifier in the '/models' directory and loss and accuracy plots in the '/plots' folder.  
+
+9. To evaluate the classifier and build confusion matrix and classification report:
+
+```
+y_pred= classifier_predict_evaluate(x_val, y_val, classifier, class_names)
+```
 
