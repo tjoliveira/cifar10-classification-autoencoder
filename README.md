@@ -169,15 +169,15 @@ set_random_seeds(42)
 x_train, x_val, x_test, y_train, y_val, y_test, class_names= load_and_norm(0.22)
 ```
 
-6. To load the optimal autoencoder configuration:
+6. To load the base autoencoder configuration:
 
 ```
-autoencoder_config= load_config('autoencoder_config_optimal.json')
+autoencoder_config= load_config('autoencoder_config_base.json')
 ```
 This is a dictionary, so it is possible to easily change the configuration (e.g., autoencoder_config['epochs']= 100). To save this configuration use the save_config() function with a filename of your choosing as in the instruction below:
 
 ```
-save_config(autoencoder_config, 'autoencoder_config_optimal.json')
+save_config(autoencoder_config, 'autoencoder_config_base.json')
 ```
 
 7. To train the autoencoder according to autoencoder_config with training and validation sets:
@@ -186,7 +186,7 @@ save_config(autoencoder_config, 'autoencoder_config_optimal.json')
 autoencoder= train_autoencoder(x_train, x_val, autoencoder_config, autoencoder_filename, encoder_filename)
 ```
 
-autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory, the training history in the '/history' directory and a training and validation loss plot in the '/plots' directory. 
+autoencoder_filename will be used to save the fitted autoencoder model in the '/models' directory and a training and validation loss plot in the '/plots' directory. 
 
 encoder_filename will be used to save the weights of the encoder component in the '/models' directory.  
 
@@ -199,10 +199,10 @@ show_image_list(x_val,y_val,class_names,image_list)
 show_image_list(x_pred,y_val,class_names,image_list)
 ```
 
-9. To load the configuration of the optimal classifier:
+9. To load the configuration of the base classifier:
 
 ```
-classifier_config= load_config('classifier_config_optimal.json')
+classifier_config= load_config('classifier_config_base.json')
 ```
 
 10. To train the classifier based on a classifier_config:
@@ -218,7 +218,7 @@ autoencoder_config is used to generate the first part of the classifier.
 
 encoder_filename is used to load the weights of the trained encoder onto the correposnding layers of the classifier. 
 
-classifier_filename is used to save the trained classifier in the '/models' directory and loss and accuracy plots in the '/plots' folder.  
+classifier_filename is used to save the trained classifier in the '/models' directory,  loss and accuracy plots in the '/plots' folder and history in the '/history' directory.  
 
 11. To evaluate the classifier and build confusion matrix and classification report:
 
