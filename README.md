@@ -1,5 +1,6 @@
 # Cifar10 Classification with Autoencoder
 
+Several works  point out the usefulness of autoencoders in multiple computer vision tasks such as anomaly detection, image denoising, or even image classification. The encoded layer of an autoencoderprovides a high level representation of the data in its feature maps which can be useful in a classification task. To test this, a Convolutional Autoencoder (CAE) is trained on the CIFAR10 data set, the decoder is discarded and output of the encoder is used as the input of a Convolutional Neural Network (CNN) for image classification.
 
 ## System Description 
 
@@ -47,13 +48,13 @@ Contains trained autoencoder and classifier models in .json format as well as we
 
 Contains plots of training and validation metrics from autoencoders and classifiers.
 
-### autoencoder_config_optimal.json
+### autoencoder_config_base.json
 
-Optimal configuration of the autoencoder resulting from this project.
+Base configuration of the autoencoder. It can be loaded and modified.
 
-### classifier_config_optimal.json
+### classifier_config_base.json
 
-Optimal configuration of the classifier resulting from this project.
+Base configuration of the classifier resulting. It can be loaded and modified.
 
 ### pipeline_optimal.ipynb
 
@@ -72,30 +73,30 @@ The autoencoder configuration is represented as a dictionary with the following 
 
 ```
 autoencoder_config= {'activity_regularizer': False,
-                    'activity_regularizer_type': 'l1',
-                    'activity_regularizer_value': 0.001,
-                    'batch_norm': False,
-                    'batch_size': 32,
-                    'callbacks': False,
-                    'conv_blocks': 2,
-                    'dropout': False,
-                    'dropout_value': 0.2,
-                    'early_stopping': False,
-                    'early_stopping_delta': 0.1,
-                    'early_stopping_patience': 10,
-                    'epochs': 100,
-                    'gaussian_noise_input': False,
-                    'gaussian_noise_hidden': False,
-                    'gaussian_noise_stddev': 0.1,
-                    'image_shape': [32, 32, 3],
-                    'init_num_filters': 32,
-                    'kernel_regularizer': False,
-                    'kernel_regularizer_type': 'l2',
-                    'kernel_regularizer_value': 0.001,
-                    'layers_per_block': 2,
-                    'loss': 'mean_squared_error',
-                    'lr': 0.001,
-                    'optimizer': 'adam'}
+ 'activity_regularizer_type': 'l1',
+ 'activity_regularizer_value': 0.001,
+ 'batch_norm': True,
+ 'batch_size': 64,
+ 'callbacks': False,
+ 'conv_blocks': 3,
+ 'dropout': True,
+ 'dropout_value': 0.2,
+ 'early_stopping': False,
+ 'early_stopping_delta': 0.1,
+ 'early_stopping_patience': 10,
+ 'epochs': 50,
+ 'gaussian_noise_hidden': False,
+ 'gaussian_noise_input': False,
+ 'gaussian_noise_stddev': 0.1,
+ 'image_shape': [32, 32, 3],
+ 'init_num_filters': 32,
+ 'kernel_regularizer': False,
+ 'kernel_regularizer_type': 'l2',
+ 'kernel_regularizer_value': 0.001,
+ 'layers_per_block': 2,
+ 'loss': 'mean_squared_error',
+ 'lr': 0.001,
+ 'optimizer': 'adam'}
 
 ```
 
@@ -105,21 +106,24 @@ autoencoder_config= {'activity_regularizer': False,
 The classifier configuration is represented as a dictionary with the following keys:
 
 ```
-classifier_config= {'batch_size': 32,
-                    'callbacks': False,
-                    'data_augmentation': False,
-                    'balance_classes_onepoch': False,
-                    'early_stopping': False,
-                    'early_stopping_delta': 0.1,
-                    'early_stopping_patience': 10,
-                    'epochs': 100,
-                    'global_pooling': 'max',
-                    'image_shape': [32, 32, 3],
-                    'loss': 'categorical_crossentropy',
-                    'lr': 0.001,
-                    'optimizer': 'adam',
-                    'class_weights': False,
-                    'weighted_metrics': None}
+classifier_config= {'batch_norm': True,
+ 'batch_size': 64,
+ 'callbacks': False,
+ 'class_weights': False,
+ 'data_augmentation': True,
+ 'dense': True,
+ 'dropout': False,
+ 'dropout_value': 0.2,
+ 'early_stopping': False,
+ 'early_stopping_delta': 0.1,
+ 'early_stopping_patience': 10,
+ 'epochs': 100,
+ 'global_pooling': 'flatten',
+ 'image_shape': [32, 32, 3],
+ 'loss': 'categorical_crossentropy',
+ 'lr': 0.001,
+ 'optimizer': 'adam',
+ 'weighted_metrics': None}
 ```
 
 
