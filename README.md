@@ -1,6 +1,6 @@
 # Cifar10 Classification with Autoencoder
 
-Several works  point out the usefulness of autoencoders in multiple computer vision tasks such as anomaly detection, image denoising, or even image classification. The encoded layer of an autoencoderprovides a high level representation of the data in its feature maps which can be useful in a classification task. To test this, a Convolutional Autoencoder (CAE) is trained on the CIFAR10 data set, the decoder is discarded and output of the encoder is used as the input of a Convolutional Neural Network (CNN) for image classification.
+Several works  point out the usefulness of autoencoders in multiple computer vision tasks such as anomaly detection, image denoising, or even image classification. The encoded layer of an autoencoderprovides a high level representation of the data in its feature maps which can be useful in a classification task. To test this, a Convolutional Autoencoder (CAE) is trained on the CIFAR10 data set, the decoder is discarded and the output of the encoder is used as the input of a Convolutional Neural Network (CNN) for image classification.
 
 ## System Description 
 
