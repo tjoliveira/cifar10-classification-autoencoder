@@ -48,6 +48,10 @@ Contains trained autoencoder and classifier models in .json format as well as we
 
 Contains plots of training and validation metrics from autoencoders and classifiers.
 
+### /tests
+
+Contains IPython notebooks used to conduct the experiments described in the report.
+
 ### autoencoder_config_base.json
 
 Base configuration of the autoencoder. It can be loaded and modified.
