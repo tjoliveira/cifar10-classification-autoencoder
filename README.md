@@ -167,7 +167,7 @@ from modelling import *
 set_random_seeds(42)
 ```
 
-5. To load the normalized ([0, 1]) CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following intruction: 
+5. To load the normalized ([0, 1]) CIFAR10 dataset split into training, validation (as 22% of the training+validation set) and test sets and with 50% of samples from classes bird, truck and deer removed, use the following instruction: 
 
 ```
 x_train, x_val, x_test, y_train, y_val, y_test, class_names= load_and_norm(0.22)
